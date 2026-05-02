@@ -151,7 +151,12 @@ def list_cmd(path, tag):
             reason = ann.get("reason", "")
             tags = ann.get("tags", [])
             created = ann.get("created", "")[:10]
-            click.echo(f"{source}:{anchor}")
+            # anchor can be like "whys/cli.py:cli" or just "cli" - show full path
+            if ":" not in anchor:
+                display = f"{source}:{anchor}"
+            else:
+                display = anchor
+            click.echo(display)
             click.echo(f"  └─ {reason}")
             if tags:
                 click.echo(f"     tags: {', '.join(tags)}")
